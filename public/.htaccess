@@ -1,0 +1,26 @@
+RewriteEngine On
+
+<IfModule mod_php5.c>
+  php_value error_reporting 6143
+  php_flag display_errors 1
+</IfModule>
+
+# Displaying PHP errors
+ php_flag display_errors on
+ php_value error_reporting 6143
+
+RewriteCond %{REQUEST_FILENAME} \.css$ [OR]
+RewriteCond %{REQUEST_FILENAME} \.js$
+RewriteRule ^(.*/)([^/]*)-[0-9]{5}\.(css|js) $1$2.$3 [NC,L]
+
+RewriteCond %{REQUEST_URI} ^/sc-web/node/cache/
+RewriteRule ^node/cache/(.*) front/tie/images/_client/cache/$1 [NC,L]
+
+RewriteCond %{REQUEST_FILENAME} -s [OR]
+RewriteCond %{REQUEST_FILENAME} -l [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteBase /testZend
+RewriteRule ^.*$ - [NC,L]
+RewriteRule ^.*$ index.php [NC,L]
+
+SetEnv APPLICATION_ENV development
